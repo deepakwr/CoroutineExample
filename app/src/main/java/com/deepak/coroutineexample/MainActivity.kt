@@ -2,7 +2,9 @@ package com.deepak.coroutineexample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -12,7 +14,7 @@ import java.util.logging.Logger
 
 class MainActivity : AppCompatActivity() {
 
-
+    val TAG = MainActivity::class.simpleName;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,16 +29,16 @@ class MainActivity : AppCompatActivity() {
              */
 
             delay(5000L);
-            Logger.getLogger(MainActivity::class.simpleName).log(Level.INFO,"Thread name within Coroutine : ${Thread.currentThread().name}")
+            Log.i(TAG,"Thread name within Coroutine : ${Thread.currentThread().name}")
             val threadName = Thread.currentThread().name;
 
             launch(Dispatchers.Main){
-                findViewById<TextView>(R.id.text_view_message).text = "Main Activity : ${threadName}";
+                text_view_message.text = "Main Activity : ${threadName}";
             }
         }
 
-        Logger.getLogger(MainActivity::class.simpleName).log(Level.INFO,"MainActivity onCreate :    Thread name within Coroutine : ${Thread.currentThread().name}")
-        findViewById<TextView>(R.id.text_view_message).text = "Main Activity : ${Thread.currentThread().name}";
+        Log.i(TAG,"MainActivity onCreate :    Thread name within Coroutine : ${Thread.currentThread().name}")
+        text_view_message.text = "Main Activity : ${Thread.currentThread().name}";
 
 
     }
